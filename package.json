@@ -8,9 +8,13 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "4.17.1",
     "install": "^0.13.0",
     "uuid": "^8.3.0",
     "uuidv4": "^6.2.2"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
   }
 }
