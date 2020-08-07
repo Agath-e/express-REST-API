@@ -27,7 +27,7 @@ router.route('/testimonials').post((req, res) => {
     author: author,
     text: text, 
   };
-  db.push(payload);
+  db.testimonials.push(payload);
   res.json({message: 'OK'});
 });
   
@@ -46,10 +46,10 @@ router.route('/testimonials/:id').put((req, res) => {
   res.json({message: 'OK'});
 });
   
-router.route('/testimonials:id').delete((req, res) => {
+router.route('/testimonials/:id').delete((req, res) => {
   const opinion = db.testimonials.filter(item => item.id == req.params.id);
   const index = db.testimonials.indexOf(opinion);
-  db.splice(index, 1);
+  db.testimonials.splice(index, 1);
 
   res.json({message: 'OK'});
 });

@@ -24,7 +24,7 @@ router.route('/seats').post((req, res) => {
     client: client,
     email: email,
   };
-  db.push(payload);
+  db.seats.push(payload);
   res.json({message: 'OK'});
 });
   
@@ -45,10 +45,10 @@ router.route('/seats/:id').put((req, res) => {
   res.json({message: 'OK'});
 });
   
-router.route('/seats:id').delete((req, res) => {
+router.route('/seats/:id').delete((req, res) => {
   const opinion = db.seats.filter(item => item.id == req.params.id);
   const index = db.seats.indexOf(opinion);
-  db.splice(index, 1);
+  db.seats.splice(index, 1);
 
   res.json({message: 'OK'});
 });

@@ -25,7 +25,7 @@ router.route('/concerts').post((req, res) => {
     day: day,
     image: image,
   };
-  db.push(payload);
+  db.concerts.push(payload);
   res.json({message: 'OK'});
 });
   
@@ -47,10 +47,10 @@ router.route('/concerts/:id').put((req, res) => {
   res.json({message: 'OK'});
 });
   
-router.route('/concerts:id').delete((req, res) => {
+router.route('/concerts/:id').delete((req, res) => {
   const opinion = db.concerts.filter(item => item.id == req.params.id);
   const index = db.concerts.indexOf(opinion);
-  db.splice(index, 1);
+  db.concerts.splice(index, 1);
   
   res.json({message: 'OK'});
 });
