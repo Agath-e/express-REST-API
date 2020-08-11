@@ -8,8 +8,16 @@ class SeatChooser extends React.Component {
   componentDidMount() {
     const { loadSeats } = this.props;
     loadSeats();
-  }
 
+    this.time = setInterval(function() {
+      loadSeats(); }, 1000* 60*2);
+
+    
+  }
+  componentWillUnmount() {
+    clearInterval(this.time);
+  }
+  
   isTaken = (seatId) => {
     const { seats, chosenDay } = this.props;
 
