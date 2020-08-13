@@ -15,7 +15,7 @@ router.route('/testimonials/:id').get((req, res) => {
 });
   
 
-router.route('/testimonials/random').get((req, res) => {
+router.route('/testimonials/custom/random').get((req, res) => {
   const randomItem = db.testimonials[Math.floor(Math.random()*db.testimonials.length)];
   res.json(randomItem);
 });
