@@ -1,1 +1,1 @@
-https://newwavefestival.herokuapp.com/
+https://newfestival.herokuapp.com/
