@@ -15,7 +15,7 @@ const seatsRoutes = require('./routes/seats.routes');
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '/client/NewWaveFest/build')));
+app.use(express.static(path.join(__dirname, '/client/build')));
 app.use((req, res, next) => {
   req.io = io;
   next();
@@ -25,7 +25,7 @@ app.use('/api', concertsRoutes); // add concerts routes to server
 app.use('/api', seatsRoutes); // add seats routes to server
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/client/NewWaveFest/build/index.html'));
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
  
 app.use((req, res) => {
@@ -33,7 +33,7 @@ app.use((req, res) => {
 })
 
 
-const server = app.listen(process.env.PORT|| 8000, () => {
+const server = app.listen(process.env.PORT || process.env.NODE_ENV || 8000, () => {
   console.log('Server is running on port: 8000');
 });
 
