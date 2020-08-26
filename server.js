@@ -34,7 +34,11 @@ app.use((req, res) => {
 })
 
 // connects our backend code with the database
-mongoose.connect('mongodb+srv://Agath-e:<password>@cluster0.vnu2y.gcp.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true });
+//mongoose.connect('mongodb+srv://Agath-e:<password>@cluster0.vnu2y.gcp.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true });
+//const db = mongoose.connection;
+
+const dbURI = process.env.NODE_ENV === 'production' ? 'url to remote db' : 'url to local db';
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.once('open', () => {
@@ -49,8 +53,11 @@ const server = app.listen(process.env.PORT || process.env.NODE_ENV || 8000, () =
   console.log('Server is running on port: 8000');
 });
 
+module.exports = server;
+
 const io = socket(server);
 
 io.on('connection', (socket) => {
   console.log('New socket!');
 });
+
