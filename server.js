@@ -4,6 +4,7 @@ const cors = require('cors')
 const path = require('path');
 const socket = require('socket.io')
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(helmet());
 app.use((req, res, next) => {
   req.io = io;
   next();
@@ -34,11 +36,11 @@ app.use((req, res) => {
 })
 
 // connects our backend code with the database
-//mongoose.connect('mongodb+srv://Agath-e:<password>@cluster0.vnu2y.gcp.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true });
-//const db = mongoose.connection;
+(process.env.NODE_ENV === 'production')
+? mongoose.connect('mongodb+srv://${process.env.user}:${process.env.pass}@cluster0.vnu2y.gcp.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true })
+: mongoose.connect('mongodb://localhost:27017/NewWaveDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-const dbURI = process.env.NODE_ENV === 'production' ? 'url to remote db' : 'url to local db';
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 const db = mongoose.connection;
 
 db.once('open', () => {
