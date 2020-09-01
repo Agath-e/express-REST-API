@@ -5,6 +5,7 @@ const path = require('path');
 const socket = require('socket.io')
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+require('dotenv').config()
 
 const app = express();
 
@@ -36,9 +37,9 @@ app.use((req, res) => {
 })
 
 // connects our backend code with the database
-(process.env.NODE_ENV === 'production')
-? mongoose.connect('mongodb+srv://${process.env.user}:${process.env.pass}@cluster0.vnu2y.gcp.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true })
-: mongoose.connect('mongodb://localhost:27017/NewWaveDB', { useNewUrlParser: true, useUnifiedTopology: true });
+//(process.env.NODE_ENV === 'production')
+mongoose.connect(`mongodb+srv://${process.env.user}:${process.env.pass}@cluster0.vnu2y.gcp.mongodb.net/NewWaveDB?retryWrites=true&w=majority`, { useNewUrlParser: true })
+//: mongoose.connect('mongodb://localhost:27017/NewWaveDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 const db = mongoose.connection;
@@ -51,8 +52,8 @@ db.on('error', err => console.log('Error ' + err));
 
 
 
-const server = app.listen(process.env.PORT || process.env.NODE_ENV || 8000, () => {
-  console.log('Server is running on port: 8000');
+const server = app.listen(process.env.PORT || process.env.NODE_ENV || 9000, () => {
+  console.log('Server is running on port: 9000');
 });
 
 module.exports = server;
